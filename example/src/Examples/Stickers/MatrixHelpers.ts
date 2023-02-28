@@ -21,9 +21,10 @@ export const rotateZ = (matrix: SkMatrix, theta: number, origin: Vector) => {
 
 export const translate = (matrix: SkMatrix, x: number, y: number) => {
   "worklet";
-  const source = Skia.Matrix(matrix.get());
-  source.translate(x, y);
-  return source;
+  const m = Skia.Matrix();
+  m.translate(x, y);
+  m.concat(matrix);
+  return m;
 };
 
 export const toM4 = (m3: SkMatrix) => {
