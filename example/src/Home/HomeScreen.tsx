@@ -89,6 +89,11 @@ export const HomeScreen = () => {
         route="Performance"
       />
       <HomeScreenButton
+        title="📸 Stickers"
+        description="Stickers"
+        route="Stickers"
+      />
+      <HomeScreenButton
         title="🔧 E2E Tests"
         description="Run integration tests"
         route="Tests"
