@@ -1,5 +1,5 @@
 import type { SkMatrix, SkRect } from "@shopify/react-native-skia";
-import { Skia } from "@shopify/react-native-skia";
+import { Skia, MatrixIndex } from "@shopify/react-native-skia";
 import React from "react";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import type { SharedValue } from "react-native-reanimated";
@@ -53,6 +53,8 @@ export const GestureHandler = ({
 
   const style = useAnimatedStyle(() => {
     const m = matrix.value.get();
+    const tx = m[MatrixIndex.TransX];
+    const ty = m[MatrixIndex.TransY];
     return {
       position: "absolute",
       left: x,
@@ -64,24 +66,7 @@ export const GestureHandler = ({
         { translateX: -width / 2 },
         { translateY: -height / 2 },
         {
-          matrix: [
-            m[0],
-            m[1],
-            m[2],
-            0,
-            m[3],
-            m[4],
-            m[5],
-            0,
-            m[6],
-            m[7],
-            m[8],
-            0,
-            0,
-            0,
-            0,
-            1,
-          ],
+          matrix: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, tx, ty, 0, 1],
         },
         { translateX: width / 2 },
         { translateY: height / 2 },
