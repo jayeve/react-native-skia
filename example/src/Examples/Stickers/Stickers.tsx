@@ -29,20 +29,14 @@ export const Stickers = () => {
         <HelloSticker matrix={helloMatrix} />
         <LocationSticker font={font} matrix={locationMatrix} />
       </Canvas>
-      <GestureHandler
-        matrix={pictureMatrix}
-        dimensions={PictureDimensions}
-        debug
-      />
+      <GestureHandler matrix={pictureMatrix} dimensions={PictureDimensions} />
       <GestureHandler
         matrix={helloMatrix}
         dimensions={HelloStickerDimensions}
-        debug
       />
       <GestureHandler
         matrix={locationMatrix}
         dimensions={LocationStickerDimensions}
-        debug
       />
     </View>
   );
