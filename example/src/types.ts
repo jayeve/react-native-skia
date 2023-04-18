@@ -19,6 +19,7 @@ export type StackParamList = {
   Wallet: undefined;
   Graphs: undefined;
   Animation: undefined;
+  Reanimated: undefined;
   Performance: undefined;
   Slides: undefined;
 };

@@ -82,9 +82,15 @@ public:
   /**
    Called when the React / JS side sets properties on a node
    */
-  void setProps(jsi::Runtime &runtime, jsi::Object &&props) {
+  void setProps(jsi::Runtime &runtime, const jsi::Value &maybePropsObject) {
     // Clear property mapping
     _mappedProperties.clear();
+
+    if (!maybePropsObject.isObject()) {
+      throw jsi::JSError(runtime, "Expected property object.");
+    }
+
+    auto props = maybePropsObject.asObject(runtime);
 
     // Use specialized reader function to be able to intercept calls that
     // reads specific named values from the js property object.
@@ -106,7 +112,7 @@ public:
    Defines a property that will be added to the container
    */
   template <class _Tp, class... _Args,
-            class = std::_EnableIf<!std::is_array<_Tp>::value>>
+            class = std::enable_if_t<!std::is_array<_Tp>::value>>
   _Tp *defineProperty(_Args &&...__args) {
     // Create property and set onChange callback
     auto prop =
