@@ -1,8 +1,8 @@
 #include "RNSkiOSPlatformContext.h"
 
-#import <React/RCTUtils.h>
-#import <Foundation/Foundation.h>
 #import <CoreText/CoreText.h>
+#import <Foundation/Foundation.h>
+#import <React/RCTUtils.h>
 
 #include <thread>
 #include <utility>
@@ -13,7 +13,6 @@
 #pragma clang diagnostic ignored "-Wdocumentation"
 
 #include "SkSurface.h"
-
 
 #pragma clang diagnostic pop
 
@@ -66,22 +65,27 @@ sk_sp<SkSurface> RNSkiOSPlatformContext::makeOffscreenSurface(int width,
   return MakeOffscreenMetalSurface(width, height);
 }
 
-sk_sp<SkTypeface> RNSkiOSPlatformContext::getTypeFace(const std::string &familyName) {
+sk_sp<SkTypeface>
+RNSkiOSPlatformContext::getTypeFace(const std::string &familyName) {
   // Get the font descriptor for a specific system font
-  auto fontDescriptor = CTFontDescriptorCreateWithNameAndSize(CFStringCreateWithCString(kCFAllocatorDefault, familyName.c_str(), kCFStringEncodingUTF8), 0.0);
+  auto fontDescriptor = CTFontDescriptorCreateWithNameAndSize(
+      CFStringCreateWithCString(kCFAllocatorDefault, familyName.c_str(),
+                                kCFStringEncodingUTF8),
+      0.0);
 
   // If the font descriptor is null, the font was not found
   if (!fontDescriptor) {
-      return nil;
+    return nil;
   }
 
   // Get the URL of the font file
-  CFURLRef fontURL = (CFURLRef)CTFontDescriptorCopyAttribute(fontDescriptor, kCTFontURLAttribute);
+  CFURLRef fontURL = (CFURLRef)CTFontDescriptorCopyAttribute(
+      fontDescriptor, kCTFontURLAttribute);
   CFRelease(fontDescriptor);
 
   // If the URL is null, there was an error getting the font file
   if (!fontURL) {
-      return nil;
+    return nil;
   }
 
   // Read the font data into an NSData object
