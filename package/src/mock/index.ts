@@ -48,6 +48,7 @@ export const Mock: typeof SkiaExports &
   useData: Noop,
   useFont: Noop,
   useTypeface: Noop,
+  useSystemTypeface: Noop,
   useImage: Noop,
   useSVG: Noop,
   createPicture: Noop,

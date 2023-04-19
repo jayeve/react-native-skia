@@ -1,6 +1,6 @@
 import type { CanvasKit } from "canvaskit-wasm";
 
-import type { SkData, TypefaceFactory } from "../types";
+import type { SkData, SkTypeface, TypefaceFactory } from "../types";
 
 import { Host } from "./Host";
 import { JsiSkTypeface } from "./JsiSkTypeface";
@@ -18,5 +18,12 @@ export class JsiSkTypefaceFactory extends Host implements TypefaceFactory {
       return null;
     }
     return new JsiSkTypeface(this.CanvasKit, tf);
+  }
+
+  MakeFromSystem(path: string): SkTypeface | null {
+    if (path == "weee") {
+      return null;
+    }
+    return null;
   }
 }
