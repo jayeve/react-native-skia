@@ -24,6 +24,7 @@ const MAX_AMOUNT = 1.5;
 const source = frag`
 uniform shader image1;
 uniform shader image2;
+uniform shader image3;
 uniform half progress;
 uniform float2 resolution;
 uniform float amount;
@@ -52,6 +53,7 @@ export const Slides = () => {
   const rct = rect(0, 0, width, height);
   const image1 = useImage(require("./assets/1.jpg"));
   const image2 = useImage(require("./assets/2.jpg"));
+  const image3 = useImage(require("./assets/3.jpg"));
   const offset = useValue(0);
   const progress = useValue(0);
   const onTouch = useTouchHandler({
@@ -75,7 +77,7 @@ export const Slides = () => {
       amount: progress.current * (MAX_AMOUNT - MIN_AMOUNT) + MIN_AMOUNT,
     };
   }, [progress]);
-  if (!image1 || !image2) {
+  if (!image1 || !image2 || !image3) {
     return null;
   }
   return (
@@ -84,6 +86,7 @@ export const Slides = () => {
         <Shader source={source} uniforms={uniforms}>
           <ImageShader image={image1} fit="cover" rect={rct} />
           <ImageShader image={image2} fit="cover" rect={rct} />
+          <ImageShader image={image3} fit="cover" rect={rct} />
         </Shader>
       </Fill>
     </Canvas>
